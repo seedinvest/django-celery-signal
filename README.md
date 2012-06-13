@@ -1,6 +1,10 @@
 django-celery-signal
 ====================
 
+# INSTALL #
+I have added a setup.py and will add this to pypi when I get a have added tests.
+
+# USAGE #
 change:
 
     from django import dispatch
