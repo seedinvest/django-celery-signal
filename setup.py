@@ -9,7 +9,7 @@ setup(
     license='MIT',
     packages=find_packages(),
     install_requires=[
-    ]
+    ],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
