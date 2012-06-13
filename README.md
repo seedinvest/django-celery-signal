@@ -3,14 +3,14 @@ django-celery-signal
 
 change:
 
-from django import dispatch
-project_cluster_event_details_changed_notification = dispatch.Signal(
-    providing_args=["event", "project_cluster", "is_project", "is_cluster", "person"]
-)
+    from django import dispatch
+    my_signal = dispatch.Signal(
+        providing_args=["arg1", "arg2", "arg3"]
+    )
 
 to 
 
-from django_celery_signal.models import CeleryASyncSignal
-project_cluster_event_details_changed_notification = CeleryASyncSignal(
-    providing_args=["event", "project_cluster", "is_project", "is_cluster", "person"]
-)
+    from django_celery_signal.models import CeleryASyncSignal
+    my_signal = CeleryASyncSignal(
+        providing_args=["arg1", "arg2", "arg3"]
+    )
