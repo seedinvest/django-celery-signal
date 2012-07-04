@@ -24,8 +24,7 @@ class CeleryASyncSignal(Signal):
             return
 
         for receiver in self._live_receivers(_make_id(sender)):
-            SignalTask.delay(receiver=receiver, signal=self, sender=sender, **named)
-#            response = receiver(signal=self, sender=sender, **named)
+            SignalTask.delay(receiver=receiver, sender=sender, **named)
 
     def send_robust(self, sender, **named):
         """
@@ -53,7 +52,6 @@ class CeleryASyncSignal(Signal):
         # Return a list of tuple pairs [(receiver, response), ... ].
         for receiver in self._live_receivers(_make_id(sender)):
             try:
-                SignalTask.delay(receiver=receiver, signal=self, sender=sender, **named)
-#                receiver(signal=self, sender=sender, **named)
+                SignalTask.delay(receiver=receiver, sender=sender, **named)
             except Exception, err:
                 pass
