@@ -3,10 +3,10 @@ from celery.registry import tasks
 
 
 class SignalTask(Task):
-    def run(self, receiver, signal, sender, **named):
-        logger = self.get_logger(**kwargs)
+    def run(self, receiver, sender, **named):
+        logger = self.get_logger(**named)
         logger.debug("Running SignalTask for %s." % receiver)
-        receiver(signal=signal, sender=sender, **named)
+        receiver(sender=sender, **named)
         return True
 
 tasks.register(SignalTask)
