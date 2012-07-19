@@ -5,7 +5,7 @@ from celery.registry import tasks
 class SignalTask(Task):
     def run(self, receiver, sender, **named):
         logger = self.get_logger(**named)
-        logger.debug("Running SignalTask for %s." % receiver)
+        logger.info("Running SignalTask for %s with args %s." % (receiver, named))
         receiver(sender=sender, **named)
         return True
 
