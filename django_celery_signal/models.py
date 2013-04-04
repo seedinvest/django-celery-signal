@@ -23,8 +23,15 @@ class CeleryASyncSignal(Signal):
         if not self.receivers:
             return
 
+        task_args = {}
+        if 'task_args' in named:
+           task_args = named.pop('task_args')
+
         for receiver in self._live_receivers(_make_id(sender)):
-            SignalTask.delay(receiver=receiver, sender=sender, **named)
+            kwargs = {"receiver": receiver, "sender": sender }
+            kwargs.update(named)
+
+            SignalTask.apply_async(kwargs=kwargs, **task_args)
 
     def send_robust(self, sender, **named):
         """
