@@ -4,22 +4,8 @@ from django_celery_signal.tasks import SignalTask
 class CeleryASyncSignal(Signal):
 
     def __init__(self, task_queue=None, task_priority=None, *args, **kwargs):
-        if not task_queue:
-            task_queue = 'siwebapp'
         self.task_queue = task_queue
-
-        # If using rabbitmq, 9 is highest priority, 0 is lowest
-        if not task_priority:
-            if task_queue is 'email':
-                task_priority = 8
-            if task_queue is 'si4ebapp':
-                task_priority = 6
-            if task_queue is 'engine':
-                task_priority = 4
-            if task_queue is 'script':
-                task_priority = 2
         self.task_priority = task_priority
-
         super(CeleryASyncSignal, self).__init__(args, kwargs)
 
     def send(self, sender, **named):
