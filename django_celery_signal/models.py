@@ -6,7 +6,7 @@ class CeleryASyncSignal(Signal):
     def __init__(self, task_queue=None, task_priority=None, *args, **kwargs):
         self.task_queue = task_queue
         self.task_priority = task_priority
-        super(CeleryASyncSignal, self).__init__(args, kwargs)
+        super(CeleryASyncSignal, self).__init__(*args, **kwargs)
 
     def send(self, sender, **named):
         """
