@@ -2,6 +2,12 @@ from django.dispatch.dispatcher import Signal, _make_id
 from django_celery_signal.tasks import SignalTask
 
 class CeleryASyncSignal(Signal):
+
+    def __init__(self, task_queue=None, task_priority=None, *args, **kwargs):
+        self.task_queue = task_queue
+        self.task_priority = task_priority
+        super(CeleryASyncSignal, self).__init__(*args, **kwargs)
+
     def send(self, sender, **named):
         """
         Send signal from sender to all connected receivers.
@@ -31,7 +37,7 @@ class CeleryASyncSignal(Signal):
             kwargs = {"receiver": receiver, "sender": sender }
             kwargs.update(named)
 
-            SignalTask.apply_async(kwargs=kwargs, **task_args)
+            SignalTask.apply_async(kwargs=kwargs, queue=self.task_queue, priority=self.task_priority, **task_args)
 
     def send_robust(self, sender, **named):
         """
